@@ -1,0 +1,115 @@
+.section {
+  padding: calc(var(--gutter) * 2) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+}
+
+.heading {
+  font-size: var(--step-3);
+  font-weight: 800;
+}
+
+.tagline {
+  margin: 0.5rem 0 0;
+  font-size: var(--step-1);
+  color: var(--accent);
+  max-width: 40ch;
+}
+
+.frame {
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #14151a;
+}
+
+.chrome {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.chrome span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--rule);
+}
+
+.shot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.body {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--muted);
+}
+
+.diagram {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  overflow: visible;
+}
+
+.edge {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.6;
+  opacity: 0.75;
+}
+
+.node {
+  fill: var(--ink);
+  stroke: var(--accent);
+  stroke-width: 0.6;
+}
+
+.nodeLabel {
+  fill: var(--paper);
+  font-size: 3.4px;
+  font-family: var(--mono), monospace;
+}
+
+.stack {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1.5rem;
+}
+
+.groupLabel {
+  margin: 0 0 0.3rem;
+}
+
+.groupItems {
+  margin: 0;
+}
+
+.credit {
+  margin: 1.5rem 0 0;
+  color: var(--accent);
+}
+
+.repo {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+  padding-bottom: 2px;
+}
