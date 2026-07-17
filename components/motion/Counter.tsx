@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useReducedMotion } from './useReducedMotion';
+import { useReducedMotion, useIsomorphicLayoutEffect } from './useReducedMotion';
 
 interface CounterProps {
   to: number;
@@ -16,6 +16,18 @@ export function Counter({ to, duration = 1200, className }: CounterProps) {
   const started = useRef(false);
   const frame = useRef(0);
 
+  // `reduced` (and therefore the lazy useState initializer above) is always
+  // `false` on the very first render, on both server and client — that's
+  // what keeps hydration matching (see useReducedMotion.ts). Under reduced
+  // motion the real value only arrives a moment later, once
+  // useReducedMotion's own layout effect corrects it. This layout effect is
+  // what snaps `value` to `to` in that same pre-paint pass — a plain
+  // (post-paint) effect here was the cause of a ~100ms flash of "0" before
+  // self-correcting to the target number.
+  useIsomorphicLayoutEffect(() => {
+    if (reduced) setValue(to);
+  }, [reduced, to]);
+
   useEffect(() => {
     // `started` is a ref so it survives the observer callback's closure, but
     // that means it also survives across effect re-runs. Without resetting
@@ -24,10 +36,11 @@ export function Counter({ to, duration = 1200, className }: CounterProps) {
     // `started.current`, freezing the counter at its old value.
     started.current = false;
 
-    if (reduced) {
-      setValue(to);
-      return;
-    }
+    // The reduced-motion final value itself is set by the layout effect
+    // above (before paint); this effect only owns the animated count-up
+    // path, so it just needs to skip that path here.
+    if (reduced) return;
+
     const el = ref.current;
     if (!el) return;
 
