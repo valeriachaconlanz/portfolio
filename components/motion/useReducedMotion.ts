@@ -25,7 +25,10 @@ const QUERY = '(prefers-reduced-motion: reduce)';
 // fall back to useEffect there via the standard isomorphic-layout-effect
 // pattern (same trick used by Redux, MUI, Framer Motion, etc.) — it's a
 // no-op either way during SSR, this just silences that specific warning.
-const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+// Exported so other primitives (e.g. Counter) can apply the same "correct
+// before paint, not after" trick for their own reduced-motion branch,
+// instead of re-deriving this SSR-safety dance independently.
+export const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 export function useReducedMotion(): boolean {
   const [reduced, setReduced] = useState(false);

@@ -26,6 +26,25 @@ describe('Counter', () => {
     expect(screen.getByText('3')).toBeInTheDocument();
   });
 
+  // Regression test for a real bug (see task-7-report.md "Fix pass"): the
+  // reduced-branch correction used to live in a plain useEffect, which
+  // committed "0" first and only corrected to `to` on the *next* frame —
+  // a real, browser-observable ~100ms flash. It's now a layout effect (see
+  // useIsomorphicLayoutEffect in useReducedMotion.ts), which fixes the
+  // flash in a real browser. This assertion can't actually distinguish the
+  // two: testing-library's render() flushes both effect types synchronously
+  // within a single act() in jsdom (same limitation noted below for
+  // useReducedMotion — jsdom has no real paint boundary), so this test only
+  // guards that the end state stays correct, not the timing. The timing fix
+  // itself is what the Playwright browser check in task-7-report.md verifies
+  // — first-paint screenshot under prefers-reduced-motion: reduce showing
+  // "3" immediately, never "0".
+  it('never regresses to a stale "0" text node once mounted under reduced motion', () => {
+    mockReducedMotion(true);
+    const { container } = render(<Counter to={3} />);
+    expect(container.textContent).toBe('3');
+  });
+
   it('exposes the final value to assistive tech even while animating', () => {
     mockReducedMotion(false);
     render(<Counter to={180} />);

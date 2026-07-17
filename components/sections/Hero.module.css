@@ -16,6 +16,12 @@
   font-weight: 800;
   display: flex;
   flex-wrap: wrap;
+  column-gap: 0.22em;
+}
+
+.word {
+  display: inline-flex;
+  flex-wrap: nowrap;
 }
 
 .letter {
