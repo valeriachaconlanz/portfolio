@@ -44,7 +44,7 @@ export function SproutFundSection() {
             src={sproutfund.screenshot}
             alt={`${sproutfund.name} home page — an investment survey with a live market ticker`}
             width={1200}
-            height={794}
+            height={796}
             className={s.shot}
             sizes="(max-width: 900px) 100vw, 900px"
           />
