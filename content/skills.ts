@@ -1,0 +1,25 @@
+import type { Skill } from '@/lib/types';
+
+export const skills: Skill[] = [
+  { label: 'Java', group: 'language' },
+  { label: 'Python', group: 'language' },
+  { label: 'JavaScript', group: 'language' },
+  { label: 'TypeScript', group: 'language' },
+  { label: 'C++', group: 'language' },
+  { label: 'SQL', group: 'language' },
+  { label: 'HTML', group: 'language' },
+  { label: 'CSS', group: 'language' },
+  { label: 'React', group: 'framework' },
+  { label: 'Spring Boot', group: 'framework' },
+  { label: 'Stencil', group: 'framework' },
+  { label: 'Vite', group: 'framework' },
+  { label: 'AWS', group: 'cloud' },
+  { label: 'DynamoDB', group: 'cloud' },
+  { label: 'AWS CDK', group: 'cloud' },
+  { label: 'CloudWatch', group: 'cloud' },
+  { label: 'Supabase', group: 'cloud' },
+  { label: 'Postgres', group: 'cloud' },
+  { label: 'Git', group: 'tool' },
+  { label: 'Maven', group: 'tool' },
+  { label: 'REST APIs', group: 'tool' },
+];
