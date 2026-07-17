@@ -5,24 +5,30 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { roles } from '@/content/experience';
 import { projectCity } from '@/lib/project';
-import { useReducedMotion } from '@/components/motion/useReducedMotion';
 import s from './Return.module.css';
 
 const PINNED = roles.filter((r) => r.stack.length > 0);
 
 export function Return() {
-  const reduced = useReducedMotion();
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    if (reduced) return;
-    if (window.matchMedia('(max-width: 767px)').matches) return;
-
     gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // gsap.matchMedia() runs this callback inside its own gsap.context(),
+    // so every tween/ScrollTrigger created here is tracked automatically and
+    // reverted the instant the query stops matching — including on a live
+    // resize across the 768px breakpoint, not just on unmount. That's what a
+    // plain useEffect + gsap.context() can't do: it only tears down on
+    // unmount/dep-change, so a mid-session resize below 768px used to leave
+    // the pin/pin-spacer stuck. Folding prefers-reduced-motion into the same
+    // query means matchMedia also handles live OS-level motion-preference
+    // changes for free.
+    mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
       const el = track.current;
       const section = root.current;
       if (!el || !section) return;
@@ -44,10 +50,10 @@ export function Return() {
           },
         },
       });
-    }, root);
+    });
 
-    return () => ctx.revert();
-  }, [reduced]);
+    return () => mm.revert();
+  }, []);
 
   const activeCity = PINNED[active]?.city;
 
