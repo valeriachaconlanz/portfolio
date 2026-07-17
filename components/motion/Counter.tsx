@@ -17,6 +17,13 @@ export function Counter({ to, duration = 1200, className }: CounterProps) {
   const frame = useRef(0);
 
   useEffect(() => {
+    // `started` is a ref so it survives the observer callback's closure, but
+    // that means it also survives across effect re-runs. Without resetting
+    // it here, a changed `to` (or `duration`/`reduced`) after the count-up
+    // already started would make the new observer bail out immediately on
+    // `started.current`, freezing the counter at its old value.
+    started.current = false;
+
     if (reduced) {
       setValue(to);
       return;
