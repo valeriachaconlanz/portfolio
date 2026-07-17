@@ -1200,13 +1200,18 @@ Create `components/sections/Hero.tsx`:
 
 import { motion } from 'motion/react';
 import { profile } from '@/content/profile';
-import { amazonReturnCount } from '@/content/experience';
+import { amazonReturnCount, roles } from '@/content/experience';
 import { Counter } from '@/components/motion/Counter';
 import { Magnetic } from '@/components/motion/Magnetic';
 import { useReducedMotion } from '@/components/motion/useReducedMotion';
 import s from './Hero.module.css';
 
-const CITIES = ['Seattle', 'San Jose', 'Seattle'];
+// Derived, never hardcoded: oldest Amazon stint first, so the cities read
+// in the order she actually went. Currently San Jose → Seattle → Seattle.
+const CITIES = roles
+  .filter((r) => r.isAmazon)
+  .map((r) => r.city.name)
+  .reverse();
 
 export function Hero() {
   const reduced = useReducedMotion();
@@ -2372,9 +2377,15 @@ export function Skills() {
         <p className={s.sub}>{reduced ? 'What I build with.' : 'Throw them around.'}</p>
       </div>
 
-      <div ref={scene} className={s.scene} aria-hidden={physics ? 'true' : undefined} />
+      <div ref={scene} className={s.scene} aria-hidden="true" />
 
-      <ul className={`${s.fallback} ${physics ? s.hidden : ''}`}>
+      {/*
+        The canvas is invisible to assistive tech, so this list is the only
+        accessible source of the skills. Once physics boots it becomes visually
+        hidden — never `display: none`, which would drop it from the a11y tree
+        and leave screen-reader users with an empty section.
+      */}
+      <ul className={`${s.fallback} ${physics ? s.visuallyHidden : ''}`}>
         {skills.map((skill) => (
           <li key={skill.label} className="mono">
             {skill.label}
@@ -2440,8 +2451,14 @@ Create `components/sections/Skills.module.css`:
   color: var(--paper);
 }
 
-.hidden {
-  display: none;
+/* Removes the list visually while keeping it in the accessibility tree. */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 ```
 
@@ -3056,6 +3073,15 @@ test.describe('personal website', () => {
     await expect(page.getByText('0:10')).toBeVisible();
   });
 
+  test('skills stay readable by assistive tech once physics boots', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('heading', { name: 'Skills' }).scrollIntoViewIfNeeded();
+    // The canvas is aria-hidden, so this list is the only accessible source.
+    // It may be visually hidden, but it must never leave the a11y tree.
+    await expect(page.getByRole('listitem').filter({ hasText: /^DynamoDB$/ })).toBeAttached();
+    await expect(page.getByRole('listitem').filter({ hasText: /^Spring Boot$/ })).toBeAttached();
+  });
+
   test('mobile does not scroll horizontally', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
@@ -3079,7 +3105,7 @@ test.describe('personal website', () => {
 - [ ] **Step 2: Run the E2E suite**
 
 Run: `npm run e2e`
-Expected: 7 passed. Fix any failures before continuing — a red test here means a real defect, not a flaky test.
+Expected: 8 passed. Fix any failures before continuing — a red test here means a real defect, not a flaky test.
 
 - [ ] **Step 3: Run the unit suite**
 
