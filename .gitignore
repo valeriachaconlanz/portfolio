@@ -4,3 +4,8 @@ out/
 .DS_Store
 .env*.local
 .vercel
+test-results/
+playwright-report/
+test-results/
+playwright-report/
+tsconfig.tsbuildinfo
