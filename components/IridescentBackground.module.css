@@ -1,0 +1,39 @@
+.root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Own stacking context so the CSS fallback and canvas layer cleanly. */
+  isolation: isolate;
+}
+
+/* Static CSS approximation of the oil-slick, used as the base layer and as
+   the sole visual when WebGL is unavailable. Layered radial "pools" of
+   iridescent color over a conic swirl, all sitting on a near-black base. */
+.fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(55% 45% at 22% 18%, rgba(90, 70, 220, 0.38), transparent 62%),
+    radial-gradient(50% 42% at 78% 14%, rgba(210, 40, 150, 0.3), transparent 60%),
+    radial-gradient(65% 55% at 65% 88%, rgba(20, 150, 160, 0.3), transparent 65%),
+    radial-gradient(45% 40% at 12% 82%, rgba(50, 90, 220, 0.22), transparent 60%),
+    conic-gradient(
+      from 200deg at 50% 50%,
+      #060710,
+      #10163a,
+      #2c1150,
+      #5c1a55,
+      #123a3f,
+      #060710
+    );
+  background-blend-mode: screen, screen, screen, screen, normal;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
