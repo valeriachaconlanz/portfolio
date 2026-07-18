@@ -1,0 +1,29 @@
+/* Scattered decoration layer: absolute within its relative parent (the page
+   body shell — see app/page.module.css), sits behind section content (the
+   parent stacks it at a negative z-index inside an isolated stacking
+   context), and never intercepts pointer events. Hidden below the tablet
+   breakpoint — see the comment on ITEMS in PixelDecor.tsx. */
+.field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  display: none;
+}
+
+@media (min-width: 901px) {
+  .field {
+    display: block;
+  }
+}
+
+.item {
+  position: absolute;
+  display: block;
+}
+
+.glyph {
+  display: block;
+  width: 100%;
+  height: auto;
+}

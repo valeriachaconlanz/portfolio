@@ -7,25 +7,20 @@
   margin: 0 auto;
 }
 
-.eyebrow {
-  margin: 0 0 0.5rem;
-}
-
 .heading {
-  font-size: var(--step-3);
-  font-weight: 800;
+  font-size: var(--step-4);
+  text-transform: uppercase;
+  margin-top: 0.35rem;
 }
 
-.tagline {
-  margin: 0.5rem 0 0;
-  font-size: var(--step-1);
-  color: var(--accent);
-  max-width: 40ch;
+.card {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 10px 10px 0 var(--ink);
 }
 
 .frame {
-  border: 1px solid var(--rule);
-  border-radius: 12px;
+  border-bottom: 2px solid var(--ink);
   overflow: hidden;
   background: #14151a;
 }
@@ -34,20 +29,40 @@
   display: flex;
   gap: 0.4rem;
   padding: 0.7rem 0.9rem;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .chrome span {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--rule);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .shot {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.cardBody {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.name {
+  font-size: var(--step-3);
+  text-transform: uppercase;
+}
+
+.tagline {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 700;
+  color: var(--accent-dim);
+  max-width: 44ch;
 }
 
 .body {
@@ -57,28 +72,30 @@
 }
 
 .diagram {
-  width: 100%;
-  aspect-ratio: 2 / 1;
-  overflow: visible;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
 }
 
-.edge {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 0.6;
-  opacity: 0.75;
+.nodeGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .node {
-  fill: var(--ink);
-  stroke: var(--accent);
-  stroke-width: 0.6;
+  border: 1.5px solid var(--ink);
+  padding: 0.5rem 0.9rem;
+  background: var(--paper);
 }
 
-.nodeLabel {
-  fill: var(--paper);
-  font-size: 3.4px;
-  font-family: var(--mono), monospace;
+.arrow {
+  color: var(--muted);
+  font-size: var(--step-1);
 }
 
 .stack {
@@ -88,8 +105,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5rem;
-  border-top: 1px solid var(--rule);
-  padding-top: 1.5rem;
 }
 
 .groupLabel {
@@ -98,18 +113,24 @@
 
 .groupItems {
   margin: 0;
+  font-weight: 600;
 }
 
 .credit {
-  margin: 1.5rem 0 0;
-  color: var(--accent);
+  margin: 0;
+  color: var(--accent-dim);
 }
 
 .repo {
   align-self: flex-start;
-  margin-top: 0.5rem;
   text-decoration: none;
-  border-bottom: 1px solid var(--accent);
-  color: var(--accent);
+  border-bottom: 2px solid var(--ink);
+  color: var(--ink);
+  font-weight: 700;
   padding-bottom: 2px;
+}
+
+.repo:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
