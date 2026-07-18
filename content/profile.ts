@@ -8,4 +8,5 @@ export const profile: Profile = {
   github: 'https://github.com/valeriachaconlanz',
   linkedin: 'https://www.linkedin.com/in/valeriachaconlanz',
   resume: '/resume.pdf',
+  site: 'https://valeriachaconlanz.com',
 };
