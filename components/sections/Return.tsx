@@ -9,6 +9,29 @@ import s from './Return.module.css';
 
 const PINNED = roles.filter((r) => r.stack.length > 0);
 
+// Some roles share a city — both Amazon Seattle stints project to the exact
+// same point — so their pins would stack into one dot. Precompute each pin's
+// position (in the 0–100 viewBox) once, nudging co-located pins horizontally
+// apart so every stint reads as its own dot on the map.
+const PIN_POSITIONS: { x: number; y: number }[] = (() => {
+  const groups = new Map<string, number[]>();
+  PINNED.forEach((role, i) => {
+    const key = `${role.city.lat},${role.city.lon}`;
+    const bucket = groups.get(key);
+    if (bucket) bucket.push(i);
+    else groups.set(key, [i]);
+  });
+
+  const SPREAD = 2.6; // viewBox units between co-located pins
+  return PINNED.map((role, i) => {
+    const base = projectCity(role.city.lat, role.city.lon);
+    const group = groups.get(`${role.city.lat},${role.city.lon}`)!;
+    const rank = group.indexOf(i);
+    const offset = (rank - (group.length - 1) / 2) * SPREAD;
+    return { x: base.x * 100 + offset, y: base.y * 100 };
+  });
+})();
+
 export function Return() {
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
@@ -68,13 +91,13 @@ export function Return() {
 
       <svg className={s.map} viewBox="0 0 100 100" aria-hidden="true" preserveAspectRatio="none">
         {PINNED.map((role, i) => {
-          const { x, y } = projectCity(role.city.lat, role.city.lon);
+          const { x, y } = PIN_POSITIONS[i];
           const lit = i <= active;
           return (
             <circle
               key={role.id}
-              cx={x * 100}
-              cy={y * 100}
+              cx={x}
+              cy={y}
               r={lit ? 1.6 : 0.9}
               className={lit ? s.pinLit : s.pin}
             />
