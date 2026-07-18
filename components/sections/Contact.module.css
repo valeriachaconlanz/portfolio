@@ -1,0 +1,46 @@
+.section {
+  min-height: 70svh;
+  padding: calc(var(--gutter) * 2) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.heading {
+  font-size: var(--step-4);
+  font-weight: 800;
+}
+
+.email {
+  font-size: var(--step-2);
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 4px;
+  word-break: break-all;
+}
+
+.links {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.links a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.colophon {
+  margin: 2rem 0 0;
+}
