@@ -8,16 +8,16 @@
 
 .head {
   flex: 0 0 auto;
+  text-align: center;
 }
 
 .heading {
-  font-size: var(--step-3);
-  font-weight: 800;
+  font-size: var(--step-4);
+  text-transform: uppercase;
 }
 
 .sub {
-  margin: 0.5rem 0 0;
-  color: var(--muted);
+  margin: 0.75rem 0 0;
 }
 
 .scene {
@@ -34,19 +34,20 @@
 .fallback {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 640px;
 }
 
 .fallback li {
-  border: 1px solid var(--accent);
+  border: 2px solid var(--ink);
   border-radius: 999px;
-  padding: 0.35rem 0.9rem;
-  /* On the page body background, not a dark local fill — see the same note
-     in Return.module.css. */
+  padding: 0.5rem 1.35rem;
   color: var(--ink);
+  font-weight: 700;
 }
 
 /* Removes the list visually while keeping it in the accessibility tree. */

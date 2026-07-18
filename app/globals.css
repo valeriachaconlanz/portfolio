@@ -83,6 +83,36 @@ a {
   color: var(--muted);
 }
 
+/* Reusable "pixel-stepped" corner clip, matching Hero's speech-bubble
+   notches (Hero.module.css .bubbleFrame/.bubbleText, 12px/6px steps) at a
+   smaller 8px/4px scale so it also reads correctly on button-sized elements.
+   Combine with a module class on the same element, e.g.
+   className={`pixelCorners ${s.button}`} — same pattern as `.mono` above. */
+.pixelCorners {
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    calc(100% - 8px) 4px,
+    calc(100% - 4px) 4px,
+    calc(100% - 4px) 8px,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 4px) calc(100% - 8px),
+    calc(100% - 4px) calc(100% - 4px),
+    calc(100% - 8px) calc(100% - 4px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    8px calc(100% - 4px),
+    4px calc(100% - 4px),
+    4px calc(100% - 8px),
+    0 calc(100% - 8px),
+    0 8px,
+    4px 8px,
+    4px 4px,
+    8px 4px
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

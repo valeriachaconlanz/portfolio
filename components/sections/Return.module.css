@@ -1,63 +1,43 @@
 .section {
-  position: relative;
-  min-height: 100svh;
-  padding: var(--gutter);
-  overflow: hidden;
+  padding: calc(var(--gutter) * 2) var(--gutter);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .head {
-  margin-bottom: 2rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--accent-dim);
 }
 
 .heading {
-  font-size: var(--step-3);
-  font-weight: 800;
+  font-size: var(--step-4);
+  text-transform: uppercase;
 }
 
 .sub {
-  margin: 0.5rem 0 0;
+  margin: 0.75rem 0 0;
   color: var(--muted);
+  font-size: var(--step-1);
 }
 
-.map {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.pin {
-  fill: var(--muted);
-  transition: r 0.5s var(--ease), fill 0.5s var(--ease);
-}
-
-.pinLit {
-  fill: var(--accent);
-  filter: drop-shadow(0 0 6px var(--accent));
-  transition: r 0.5s var(--ease), fill 0.5s var(--ease);
-}
-
-.cityLabel {
-  position: absolute;
-  top: var(--gutter);
-  right: var(--gutter);
-  margin: 0;
-  color: var(--accent);
-}
-
-.track {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-  will-change: transform;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .card {
-  flex: 0 0 min(46ch, 82vw);
-  border-left: 1px solid var(--rule);
-  padding-left: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
 }
 
 .dates {
@@ -66,17 +46,18 @@
 
 .org {
   font-size: var(--step-2);
-  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .title {
-  margin: 0.25rem 0 0;
-  font-size: var(--step-1);
-  color: var(--accent);
+  margin: 0.35rem 0 0;
+  font-size: var(--step-0);
+  font-weight: 700;
+  color: var(--accent-dim);
 }
 
 .city {
-  margin: 0.25rem 0 1rem;
+  margin: 0.35rem 0 1.1rem;
 }
 
 .bullets {
@@ -85,11 +66,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  /* Sits directly on the page body background (no local fill), so this must
-     track --ink (the new light theme's text color), not --paper (the new
-     background color) — was correct in the old dark theme where --paper
-     meant "light text," but the redesign inverted the token values. */
   color: var(--ink);
+  flex: 1 1 auto;
 }
 
 .stack {
@@ -102,47 +80,7 @@
 }
 
 .stack li {
-  border: 1px solid var(--rule);
+  border: 1.5px solid var(--ink);
   border-radius: 999px;
   padding: 0.2rem 0.7rem;
-}
-
-/* Below 768px the pin is disabled in JS, so the track must wrap vertically. */
-@media (max-width: 767px) {
-  .section {
-    overflow: visible;
-  }
-
-  .track {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 3.5rem;
-    transform: none !important;
-  }
-
-  .card {
-    flex: 1 1 auto;
-  }
-
-  .map,
-  .cityLabel {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .section {
-    overflow: visible;
-  }
-
-  .track {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 3.5rem;
-    transform: none !important;
-  }
-
-  .card {
-    flex: 1 1 auto;
-  }
 }
