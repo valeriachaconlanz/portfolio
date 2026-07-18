@@ -1,79 +1,57 @@
-'use client';
-
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { formatClock } from '@/lib/clock';
 import { roles } from '@/content/experience';
-import { useReducedMotion } from '@/components/motion/useReducedMotion';
+import { Reveal } from '@/components/motion/Reveal';
 import s from './Speedup.module.css';
 
 const FROM = 1800; // 30 minutes
-const TO = 10;     // 10 seconds
+const TO = 10; // 10 seconds
 
 const current = roles.find((r) => r.id === 'amazon-2026')!;
 
 export function Speedup() {
-  const reduced = useReducedMotion();
-  const root = useRef<HTMLElement>(null);
-  const [seconds, setSeconds] = useState(FROM);
-  const [landed, setLanded] = useState(false);
-
-  useEffect(() => {
-    if (reduced) {
-      setSeconds(TO);
-      setLanded(true);
-      return;
-    }
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const proxy = { value: FROM };
-      gsap.to(proxy, {
-        value: TO,
-        ease: 'power4.in',
-        scrollTrigger: {
-          trigger: root.current,
-          start: 'top 65%',
-          end: 'bottom 60%',
-          scrub: 0.6,
-          onUpdate: () => setSeconds(proxy.value),
-          onLeave: () => setLanded(true),
-          onEnterBack: () => setLanded(false),
-        },
-      });
-    }, root);
-
-    return () => ctx.revert();
-  }, [reduced]);
-
   return (
-    <section id="speedup" ref={root} className={s.section} aria-labelledby="speedup-heading">
-      <p className={`mono ${s.eyebrow}`}>Amazon · Connections · {current.start} — Present</p>
+    <section id="speedup" className={s.section} aria-labelledby="speedup-heading">
+      <Reveal>
+        {/* A single template-string expression, not mixed JSX text/expression
+            children — JSX's line-boundary whitespace trimming silently ate
+            the space between {current.start} and the following entity when
+            this was written as literal text (confirmed via a real browser:
+            textContent came back "...2026— Present", missing space). */}
+        <p className={`mono ${s.eyebrow}`}>
+          {`Amazon · Connections · ${current.start} — Present`}
+        </p>
+      </Reveal>
 
-      <h2 id="speedup-heading" className={s.heading}>
-        Thirty minutes,
-        <br />
-        <span className={s.accent}>ten seconds.</span>
-      </h2>
+      <Reveal delay={0.05}>
+        <h2 id="speedup-heading" className={s.heading}>
+          <span className={s.clock}>{formatClock(FROM)}</span>
+          <span className={s.arrow} aria-hidden="true">
+            &rarr;
+          </span>
+          <span className={`${s.clock} ${s.accent}`}>{formatClock(TO)}</span>
+        </h2>
+      </Reveal>
 
-      <div className={`${s.clock} ${landed ? s.landed : ''}`} aria-hidden="true">
-        {formatClock(seconds)}
-      </div>
-      <p className={s.srOnly}>
-        An internal tool that reduces an administrator task from 30 minutes to 10 seconds.
-      </p>
+      <Reveal delay={0.1}>
+        <p className={s.multiplier}>
+          180<span aria-hidden="true">&times;</span>
+          <span className={s.srOnly}>times faster</span>
+        </p>
+      </Reveal>
 
-      <p className={s.body}>{current.bullets[0]}</p>
+      <Reveal delay={0.15}>
+        <p className={s.body}>{current.bullets[0]}</p>
+      </Reveal>
 
-      <ul className={s.stack}>
-        {current.stack.map((t) => (
-          <li key={t} className={`mono ${s.node}`}>
-            {t}
-          </li>
-        ))}
-      </ul>
+      <Reveal delay={0.2}>
+        <ul className={s.stack}>
+          {current.stack.map((t) => (
+            <li key={t} className={`mono ${s.node}`}>
+              {t}
+            </li>
+          ))}
+        </ul>
+      </Reveal>
     </section>
   );
 }

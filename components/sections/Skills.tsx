@@ -54,7 +54,7 @@ export function Skills() {
               chamfer: { radius: 20 },
               restitution: 0.55,
               friction: 0.15,
-              render: { fillStyle: '#14151a', strokeStyle: '#4cc9f0', lineWidth: 1 },
+              render: { fillStyle: '#0a0b0d', strokeStyle: '#ef3a24', lineWidth: 2 },
             },
           );
         });
@@ -117,9 +117,9 @@ export function Skills() {
     <section id="skills" className={s.section} aria-labelledby="skills-heading">
       <div className={s.head}>
         <h2 id="skills-heading" className={s.heading}>
-          Skills
+          CODING SINCE 2019
         </h2>
-        <p className={s.sub}>{reduced ? 'What I build with.' : 'Throw them around.'}</p>
+        <p className={`mono ${s.sub}`}>{reduced ? 'What I build with.' : 'Throw them around.'}</p>
       </div>
 
       <div ref={scene} className={s.scene} aria-hidden="true" />
