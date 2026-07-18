@@ -53,4 +53,6 @@ export interface Profile {
   github: string;
   linkedin: string;
   resume: string;
+  /** Canonical origin, e.g. "https://valeriachaconlanz.com" — no trailing slash. */
+  site: string;
 }

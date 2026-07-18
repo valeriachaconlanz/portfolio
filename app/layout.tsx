@@ -17,12 +17,21 @@ const display = Archivo_Black({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(profile.site),
   title: `${profile.name} — Software Engineer`,
   description: `${profile.headline}. Building an internal tool at Amazon that turns a 30-minute task into 10 seconds.`,
+  alternates: { canonical: '/' },
   openGraph: {
     title: `${profile.name} — Software Engineer`,
     description: profile.headline,
     type: 'profile',
+    url: profile.site,
+    siteName: profile.name,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${profile.name} — Software Engineer`,
+    description: profile.headline,
   },
 };
 
