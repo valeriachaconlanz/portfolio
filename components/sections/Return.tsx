@@ -58,7 +58,7 @@ export function Return() {
   const activeCity = PINNED[active]?.city;
 
   return (
-    <section ref={root} className={s.section} aria-labelledby="return-heading">
+    <section id="return" ref={root} className={s.section} aria-labelledby="return-heading">
       <div className={s.head}>
         <h2 id="return-heading" className={s.heading}>
           The Return
