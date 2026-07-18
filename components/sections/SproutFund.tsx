@@ -24,7 +24,7 @@ export function SproutFundSection() {
   const reduced = useReducedMotion();
 
   return (
-    <section className={s.section} aria-labelledby="sproutfund-heading">
+    <section id="sproutfund" className={s.section} aria-labelledby="sproutfund-heading">
       <Reveal>
         <p className={`mono ${s.eyebrow}`}>Selected work</p>
         <h2 id="sproutfund-heading" className={s.heading}>

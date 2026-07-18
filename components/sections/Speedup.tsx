@@ -49,7 +49,7 @@ export function Speedup() {
   }, [reduced]);
 
   return (
-    <section ref={root} className={s.section} aria-labelledby="speedup-heading">
+    <section id="speedup" ref={root} className={s.section} aria-labelledby="speedup-heading">
       <p className={`mono ${s.eyebrow}`}>Amazon · Connections · {current.start} — Present</p>
 
       <h2 id="speedup-heading" className={s.heading}>

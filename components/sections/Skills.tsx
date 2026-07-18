@@ -114,7 +114,7 @@ export function Skills() {
   }, [reduced]);
 
   return (
-    <section className={s.section} aria-labelledby="skills-heading">
+    <section id="skills" className={s.section} aria-labelledby="skills-heading">
       <div className={s.head}>
         <h2 id="skills-heading" className={s.heading}>
           Skills

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import { profile } from '@/content/profile';
 import { SmoothScroll } from '@/components/SmoothScroll';
+import { CommandPalette } from '@/components/CommandPalette';
 import './globals.css';
 
 const sans = Inter({ subsets: ['latin'], variable: '--sans', display: 'swap' });
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
+        <CommandPalette />
       </body>
     </html>
   );

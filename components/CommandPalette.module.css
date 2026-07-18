@@ -1,0 +1,73 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 6, 8, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding-top: 14vh;
+}
+
+.panel {
+  width: min(540px, 92vw);
+  height: fit-content;
+  background: #101116;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+}
+
+.input {
+  width: 100%;
+  padding: 1rem 1.15rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--paper);
+  font-size: var(--step-0);
+  font-family: inherit;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem;
+  max-height: 46vh;
+  overflow-y: auto;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0.8rem;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: var(--paper);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.active {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+
+.hint {
+  color: var(--muted);
+}
+
+.empty {
+  padding: 0.8rem;
+  color: var(--muted);
+}

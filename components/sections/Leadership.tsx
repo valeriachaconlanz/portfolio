@@ -7,7 +7,7 @@ const LEADERSHIP = roles.filter((r) => !r.isAmazon && r.id !== 'fifa-2024');
 
 export function Leadership() {
   return (
-    <section className={s.section} aria-labelledby="leadership-heading">
+    <section id="leadership" className={s.section} aria-labelledby="leadership-heading">
       <Reveal>
         <h2 id="leadership-heading" className={s.heading}>
           Leadership &amp; Education

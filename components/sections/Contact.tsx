@@ -6,7 +6,7 @@ import s from './Contact.module.css';
 
 export function Contact() {
   return (
-    <footer className={s.section} aria-labelledby="contact-heading">
+    <footer id="contact" className={s.section} aria-labelledby="contact-heading">
       <h2 id="contact-heading" className={s.heading}>
         Let’s talk.
       </h2>
