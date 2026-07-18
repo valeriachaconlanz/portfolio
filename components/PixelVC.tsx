@@ -1,56 +1,57 @@
 import type { ReactElement } from 'react';
 
-// A small, original pixel-art "VC" monogram badge — hand-built from a grid
-// of 1x1 SVG rects (no external assets, no font glyphs). Sits between
-// VALERIA and CHACON in the hero wordmark.
+// A small, original pixel-art "VC" monogram badge — hand-built from a grid of
+// 1x1 SVG rects (no external assets, no font glyphs). Sits between VALERIA and
+// CHACON in the hero wordmark.
 //
-// Layout on a 15 (wide) x 9 (tall) unit grid:
-//   - A 1-unit-thick frame runs around the perimeter, but each of the 4
-//     corner cells is left empty — that's what reads as a "stepped"/chamfered
-//     pixel-art badge corner instead of a plain rounded rect.
-//   - The 4 corner cells are instead filled with a single accent pixel,
-//     echoing a retro game dialog-box frame.
-//   - The interior (rows 1-7, cols 1-13) is a solid dark fill.
-//   - "V" and "C" are each drawn as a 5x7 block glyph inside that interior,
-//     with a 1-column gap between them and 1-column padding on the outer
-//     edges.
+// The glyphs use 2-unit-thick strokes rather than 1: at hero scale a 1-unit
+// stroke reads as a row of disconnected blocks (it looked like a barcode),
+// while 2 units stays unmistakably "VC" from across the room and still down at
+// 375px wide.
 //
-// Colors are hardcoded (not read from CSS custom properties) so the badge
-// keeps its own identity — a small dark badge with a bright frame and white
-// letters — regardless of how the surrounding page's theme tokens evolve.
+// Grid is 21 (wide) x 13 (tall): a 1-unit frame, 1 unit of breathing room, two
+// 7x9 glyphs with a 2-unit gap between them. The four corner cells carry the
+// accent color to read as a stepped retro dialog-box frame.
+//
+// Colors are hardcoded (not theme tokens) so the badge keeps its own identity
+// regardless of how the page's palette evolves.
 const FRAME_COLOR = '#ef3a24';
 const INTERIOR_COLOR = '#0a0b0d';
 const LETTER_COLOR = '#ffffff';
 
-const GRID_W = 15;
-const GRID_H = 9;
+const GRID_W = 21;
+const GRID_H = 13;
 
-// 5x7 block glyphs, row-major, 1 = pixel on.
+// 7x9 block glyphs, row-major, 1 = pixel on. Strokes are 2 units thick.
 const GLYPH_V = [
-  [1, 0, 0, 0, 1],
-  [1, 0, 0, 0, 1],
-  [1, 0, 0, 0, 1],
-  [1, 0, 0, 0, 1],
-  [0, 1, 0, 1, 0],
-  [0, 1, 0, 1, 0],
-  [0, 0, 1, 0, 0],
+  [1, 1, 0, 0, 0, 1, 1],
+  [1, 1, 0, 0, 0, 1, 1],
+  [1, 1, 0, 0, 0, 1, 1],
+  [1, 1, 0, 0, 0, 1, 1],
+  [1, 1, 0, 0, 0, 1, 1],
+  [0, 1, 1, 0, 1, 1, 0],
+  [0, 1, 1, 0, 1, 1, 0],
+  [0, 0, 1, 1, 1, 0, 0],
+  [0, 0, 1, 1, 1, 0, 0],
 ];
 
 const GLYPH_C = [
-  [0, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0],
-  [1, 0, 0, 0, 0],
-  [1, 0, 0, 0, 0],
-  [1, 0, 0, 0, 0],
-  [1, 0, 0, 0, 0],
-  [0, 1, 1, 1, 1],
+  [0, 0, 1, 1, 1, 1, 0],
+  [0, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 0, 0, 1, 1],
+  [1, 1, 0, 0, 0, 0, 0],
+  [1, 1, 0, 0, 0, 0, 0],
+  [1, 1, 0, 0, 0, 0, 0],
+  [1, 1, 1, 0, 0, 1, 1],
+  [0, 1, 1, 1, 1, 1, 1],
+  [0, 0, 1, 1, 1, 1, 0],
 ];
 
+const GLYPH_ROW = 2;
 const V_COL = 2;
-const C_COL = 8;
-const GLYPH_ROW = 1;
+const C_COL = 12;
 
-function glyphRects(glyph: number[][], colOffset: number, color: string, keyPrefix: string) {
+function glyphRects(glyph: number[][], colOffset: number, keyPrefix: string) {
   const rects: ReactElement[] = [];
   glyph.forEach((row, r) => {
     row.forEach((on, c) => {
@@ -62,7 +63,7 @@ function glyphRects(glyph: number[][], colOffset: number, color: string, keyPref
           y={GLYPH_ROW + r}
           width={1}
           height={1}
-          fill={color}
+          fill={LETTER_COLOR}
         />
       );
     });
@@ -108,13 +109,13 @@ export function PixelVC({ className }: PixelVCProps) {
       <rect x={1} y={1} width={GRID_W - 2} height={GRID_H - 2} fill={INTERIOR_COLOR} />
       {/* Stepped frame */}
       {framePixels()}
-      {/* Accent corner dots — the "step" that reads as pixel art */}
+      {/* Accent corner pixels — the "step" that reads as pixel art */}
       {CORNERS.map(([x, y]) => (
         <rect key={`corner-${x}-${y}`} x={x} y={y} width={1} height={1} fill={FRAME_COLOR} />
       ))}
       {/* Letters */}
-      {glyphRects(GLYPH_V, V_COL, LETTER_COLOR, 'v')}
-      {glyphRects(GLYPH_C, C_COL, LETTER_COLOR, 'c')}
+      {glyphRects(GLYPH_V, V_COL, 'v')}
+      {glyphRects(GLYPH_C, C_COL, 'c')}
     </svg>
   );
 }
