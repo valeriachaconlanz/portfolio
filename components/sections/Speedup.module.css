@@ -58,7 +58,9 @@
   border: 1px solid var(--rule);
   border-radius: 999px;
   padding: 0.35rem 0.9rem;
-  color: var(--paper);
+  /* On the page body background, not a dark local fill — see the same note
+     in Return.module.css. */
+  color: var(--ink);
 }
 
 .srOnly {

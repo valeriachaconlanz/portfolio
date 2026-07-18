@@ -1,10 +1,21 @@
 :root {
+  /* Brutalist-pixel palette (inverted from the old dark theme): bright
+     off-white paper body, near-black ink text. --ink/--paper/--muted/--rule/
+     --accent are kept (same names, new values) because every section's CSS
+     module still references them — see the redesign report for the token
+     migration notes and the couple of section-level `color: var(--paper)`
+     call sites that had to flip to `var(--ink)` so text sitting on the new
+     light body background doesn't go white-on-white. */
   --ink: #0a0b0d;
   --paper: #f4f2ed;
-  --accent: #4cc9f0;
-  --accent-dim: #1b7f9e;
-  --muted: #8b8d93;
-  --rule: rgba(244, 242, 237, 0.12);
+  /* Saturated poster red, reserved for pixel-art accents (badge frame,
+     small decorations) and link/hover color — not a UI-wide brand blue like
+     the old cyan. Intentionally not Amazon orange (#FF9900) or SproutFund
+     lime (#ccff00). */
+  --accent: #ef3a24;
+  --accent-dim: #a8250f;
+  --muted: #5c5e64;
+  --rule: rgba(10, 11, 13, 0.12);
 
   --step--1: clamp(0.78rem, 0.75rem + 0.15vw, 0.86rem);
   --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
@@ -12,7 +23,7 @@
   --step-2: clamp(1.8rem, 1.5rem + 1.4vw, 2.6rem);
   --step-3: clamp(2.6rem, 2rem + 3vw, 4.4rem);
   --step-4: clamp(3.6rem, 2.2rem + 6vw, 7rem);
-  --step-5: clamp(5rem, 2rem + 14vw, 15rem);
+  --step-5: clamp(4.5rem, 2rem + 16vw, 16rem);
 
   --gutter: clamp(1.25rem, 4vw, 5rem);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -31,8 +42,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--ink);
-  color: var(--paper);
+  /* Redesign inverts the old dark theme: bright paper body, near-black ink
+     text. The hero/footer stay dark because IridescentBackground paints its
+     own dark layer on top of this — see Hero.module.css's hero-scoped
+     --hero-fg tokens for that section's text color. */
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--sans), system-ui, sans-serif;
   font-size: var(--step-0);
   line-height: 1.55;
@@ -43,6 +58,7 @@ body {
 h1,
 h2,
 h3 {
+  font-family: var(--display), var(--sans), system-ui, sans-serif;
   line-height: 0.95;
   letter-spacing: -0.03em;
   margin: 0;
