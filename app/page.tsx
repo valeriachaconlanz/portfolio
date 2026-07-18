@@ -3,15 +3,21 @@ import { Return } from '@/components/sections/Return';
 import { Speedup } from '@/components/sections/Speedup';
 import { SproutFundSection } from '@/components/sections/SproutFund';
 import { Skills } from '@/components/sections/Skills';
+import { Leadership } from '@/components/sections/Leadership';
+import { Contact } from '@/components/sections/Contact';
 
 export default function Page() {
   return (
-    <main>
+    <>
       <Hero />
-      <Return />
-      <Speedup />
-      <SproutFundSection />
-      <Skills />
-    </main>
+      <main>
+        <Return />
+        <Speedup />
+        <SproutFundSection />
+        <Skills />
+        <Leadership />
+      </main>
+      <Contact />
+    </>
   );
 }
