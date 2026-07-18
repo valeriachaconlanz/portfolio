@@ -4,12 +4,12 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 
 const QUERY = '(prefers-reduced-motion: reduce)';
 
-// Reading document.documentElement's data-motion attribute (set by
-// app/layout.tsx's blocking pre-hydration script) directly in a useState
-// lazy initializer was tried first and rejected: it makes the client's
-// FIRST hydration render diverge from the server-rendered HTML (SSR always
-// computes `false`, since there is no `document` there), which is exactly a
-// React hydration mismatch — confirmed empirically in a real browser
+// An earlier approach set a data-motion attribute from a blocking
+// pre-hydration script and read it here in a useState lazy initializer.
+// Both the script and this read were removed: reading it that way makes the
+// client's FIRST hydration render diverge from the server-rendered HTML (SSR
+// always computes `false`, since there is no `document` there), which is
+// exactly a React hydration mismatch — confirmed empirically in a real browser
 // (`npm run dev`), where it produced "Hydration failed because the server
 // rendered text didn't match the client" for Counter's text content, plus
 // React discarding and regenerating the tree client-side.
