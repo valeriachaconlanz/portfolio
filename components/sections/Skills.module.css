@@ -1,6 +1,7 @@
 .section {
-  min-height: 100svh;
-  padding: var(--gutter);
+  /* Sized by its content rather than the viewport — a forced 100svh left a
+     large empty gap above the settled token pile. */
+  padding: calc(var(--gutter) * 1.5) var(--gutter);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -23,7 +24,11 @@
 .scene {
   position: relative;
   flex: 1 1 auto;
-  min-height: 60svh;
+  /* Tokens drop in and settle along the floor, so a tall scene leaves a big
+     empty void above the pile. Keep it short enough that the settled pile
+     fills most of the frame. */
+  min-height: 20rem;
+  max-height: 24rem;
   touch-action: none;
 }
 
