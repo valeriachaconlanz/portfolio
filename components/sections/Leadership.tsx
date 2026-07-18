@@ -19,7 +19,7 @@ export function Leadership() {
           <p className={`mono ${s.label}`}>Leadership</p>
           <ul className={s.list}>
             {LEADERSHIP.map((role) => (
-              <li key={role.id}>
+              <li key={role.id} className={s.item}>
                 <Reveal>
                   <p className={s.org}>{role.org}</p>
                   <p className={s.role}>{role.title}</p>
@@ -41,7 +41,7 @@ export function Leadership() {
           <p className={`mono ${s.label}`}>Education</p>
           <ul className={s.list}>
             {schools.map((school) => (
-              <li key={`${school.name}-${school.credential}`}>
+              <li key={`${school.name}-${school.credential}`} className={s.item}>
                 <Reveal>
                   <p className={s.org}>{school.name}</p>
                   <p className={s.role}>{school.credential}</p>

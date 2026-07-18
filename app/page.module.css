@@ -1,0 +1,11 @@
+/* The bright body "card" that overlaps the dark hero: a large rounded top
+   radius plus a small negative margin so it visually reads as a sheet
+   sitting on top of the oil-slick hero, per the redesign spec. */
+.body {
+  position: relative;
+  isolation: isolate;
+  background: var(--paper);
+  border-radius: clamp(24px, 5vw, 56px) clamp(24px, 5vw, 56px) 0 0;
+  margin-top: clamp(-32px, -3vw, -16px);
+  overflow: hidden;
+}
