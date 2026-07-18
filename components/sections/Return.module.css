@@ -85,7 +85,11 @@
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  color: var(--paper);
+  /* Sits directly on the page body background (no local fill), so this must
+     track --ink (the new light theme's text color), not --paper (the new
+     background color) — was correct in the old dark theme where --paper
+     meant "light text," but the redesign inverted the token values. */
+  color: var(--ink);
 }
 
 .stack {
