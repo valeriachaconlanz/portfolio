@@ -16,6 +16,17 @@ const display = Archivo_Black({
   display: 'swap',
 });
 
+// A capture of the hero, so link previews show the site itself. Without this,
+// scrapers fall back to the largest image on the page — which was the
+// SproutFund screenshot, making shared links look like they were about that
+// project rather than about Valeria.
+const OG_IMAGE = {
+  url: '/og.jpg',
+  width: 1200,
+  height: 630,
+  alt: `${profile.name} — software engineer portfolio`,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(profile.site),
   title: `${profile.name} — Software Engineer`,
@@ -27,11 +38,13 @@ export const metadata: Metadata = {
     type: 'profile',
     url: profile.site,
     siteName: profile.name,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${profile.name} — Software Engineer`,
     description: profile.headline,
+    images: [OG_IMAGE.url],
   },
 };
 
