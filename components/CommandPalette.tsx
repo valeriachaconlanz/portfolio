@@ -22,7 +22,7 @@ export function CommandPalette() {
   }, []);
 
   const commands: Command[] = [
-    { label: 'The Return', hint: 'Amazon ×3', run: () => jump('return') },
+    { label: 'Experience', hint: 'Amazon ×3', run: () => jump('return') },
     { label: 'The 180× moment', hint: 'Connections', run: () => jump('speedup') },
     { label: 'SproutFund', hint: 'Project', run: () => jump('sproutfund') },
     { label: 'Skills', hint: 'Throw them', run: () => jump('skills') },

@@ -8,6 +8,21 @@ import s from './Return.module.css';
 // set of cards is unchanged by the redesign — only the mechanics are gone.
 const TIMELINE = roles.filter((r) => r.stack.length > 0);
 
+// Derived rather than written out, so the summary line stays true if another
+// internship is added to content/experience.ts.
+const AMAZON_YEARS = roles
+  .filter((r) => r.isAmazon)
+  .map((r) => r.start.split(' ').at(-1) ?? '')
+  .reverse();
+
+const NUMBER_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'];
+const countWord = NUMBER_WORDS[amazonReturnCount] ?? String(amazonReturnCount);
+
+const yearList =
+  AMAZON_YEARS.length > 1
+    ? `${AMAZON_YEARS.slice(0, -1).join(', ')}, and ${AMAZON_YEARS.at(-1)}`
+    : AMAZON_YEARS[0];
+
 export function Return() {
   return (
     <section id="return" className={s.section} aria-labelledby="return-heading">
@@ -15,9 +30,14 @@ export function Return() {
         <div className={s.head}>
           <p className={`mono ${s.eyebrow}`}>{amazonReturnCount}&times; Amazon</p>
           <h2 id="return-heading" className={s.heading}>
-            THE RETURN
+            EXPERIENCE
           </h2>
-          <p className={s.sub}>Amazon asked three times.</p>
+          {/* One template string, not JSX text around expressions — JSX
+              inserts a space between an expression and following punctuation,
+              which rendered as "2026 ." */}
+          <p className={s.sub}>
+            {`${countWord} software engineering internships at Amazon — ${yearList}.`}
+          </p>
         </div>
       </Reveal>
 
