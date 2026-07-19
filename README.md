@@ -1,4 +1,4 @@
-# valeriachacon.com
+# valeriachaconlanz.com
 
 Personal website. Next.js App Router, GSAP ScrollTrigger, Motion, Lenis, matter.js.
 
